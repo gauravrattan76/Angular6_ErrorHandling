@@ -14,6 +14,7 @@ export class messageService{
         return this._http.get<any>("http://localhost:3000/employees1")
         .pipe(catchError(this.handleError))
         .pipe(retryWhen(errors => errors.pipe(delay(1000), take(10))))
+      // retryWhen(errors => errors.pipe(delay(retryITNERVAL), take(retryCOUNT), concat(throwError("Giving up Retry.!")))),
         //This will complete the whole observable after 10 attempts. If you want to error the whole observable after 10 attempts, the observable returned by the retryWhen callback must throw:
     }
 
