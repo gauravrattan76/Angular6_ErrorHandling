@@ -1,0 +1,15 @@
+table{
+    color: blue;
+    font-family: 'Courier New', Courier, monospace;
+    border-collapse: collapse;
+}
+
+td{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th{
+    border: 1px solid black;
+    padding: 5px;
+}
