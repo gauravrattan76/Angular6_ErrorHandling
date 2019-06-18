@@ -1,7 +1,7 @@
 import {HttpClient,HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import { Observable,throwError} from 'rxjs';
-import {catchError,retryWhen,retry} from 'rxjs/operators';
+import {catchError,retryWhen,retry,delay,take} from 'rxjs/operators';
 
 @Injectable()
 export class messageService{
@@ -11,9 +11,10 @@ export class messageService{
     }
 
     getEmployees():Observable<any>{
-        return this._http.get<any>("http://localhost:3000/employees2")
+        return this._http.get<any>("http://localhost:3000/employees1")
         .pipe(catchError(this.handleError))
-        .pipe(retry())
+        .pipe(retryWhen(errors => errors.pipe(delay(1000), take(10))))
+        //This will complete the whole observable after 10 attempts. If you want to error the whole observable after 10 attempts, the observable returned by the retryWhen callback must throw:
     }
 
     handleError(errorResponse:HttpErrorResponse){
