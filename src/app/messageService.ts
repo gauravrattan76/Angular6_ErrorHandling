@@ -1,7 +1,7 @@
 import {HttpClient,HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import { Observable,throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError,retryWhen,retry} from 'rxjs/operators';
 
 @Injectable()
 export class messageService{
@@ -13,6 +13,7 @@ export class messageService{
     getEmployees():Observable<any>{
         return this._http.get<any>("http://localhost:3000/employees2")
         .pipe(catchError(this.handleError))
+        .pipe(retry())
     }
 
     handleError(errorResponse:HttpErrorResponse){
